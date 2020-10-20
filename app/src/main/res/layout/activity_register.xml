@@ -202,6 +202,32 @@
                         android:padding="@dimen/_8sdp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:text="@string/text_confirm_password" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:background="@drawable/rect"
+                        android:drawableStart="@drawable/ic_baseline_vpn_key_24"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:hint="@string/hint_confirm_password"
+                        android:inputType="textPassword"
+                        android:padding="@dimen/_8sdp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"
