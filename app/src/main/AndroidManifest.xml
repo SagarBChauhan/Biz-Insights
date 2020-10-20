@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bizinsights">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".utility.Globals"
         android:allowBackup="true"
