@@ -10,6 +10,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,4 +31,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+    implementation 'com.orhanobut:logger:2.2.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
