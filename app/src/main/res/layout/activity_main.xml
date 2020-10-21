@@ -57,7 +57,6 @@
                         android:drawableStart="@drawable/ic_baseline_account_circle_24"
                         android:drawablePadding="@dimen/_5sdp"
                         android:drawableTint="@color/colorPrimary"
-
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_username"
                         android:padding="@dimen/_8sdp"
