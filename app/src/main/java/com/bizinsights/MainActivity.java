@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     client.post(this, getAbsoluteUrl(getString(R.string.login)), entity, "application/json", new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            Logger.d("Status Code: " + "\nResponse: " + Arrays.toString(responseBody)+"\nHeaders: " + Arrays.toString(headers));
+                            Logger.d("Status Code: " + "\nResponse: " + Arrays.toString(responseBody) + "\nHeaders: " + Arrays.toString(headers));
                         }
 
                         @Override
