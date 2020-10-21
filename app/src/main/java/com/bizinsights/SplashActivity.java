@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.widget.Toast;
 
 public class SplashActivity extends AppCompatActivity {
-    private int DELAY=2000;
+    private int DELAY=5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

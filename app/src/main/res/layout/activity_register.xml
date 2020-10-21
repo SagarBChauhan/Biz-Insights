@@ -57,7 +57,8 @@
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_first_name"
                         android:inputType="textPersonName"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="@dimen/_8sdp"
+                        android:textColor="@color/colorPrimaryDark" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -83,7 +84,8 @@
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_last_name"
                         android:inputType="textPersonName"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="@dimen/_8sdp"
+                        android:textColor="@color/colorPrimaryDark" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -112,12 +114,15 @@
                         android:background="@drawable/rect"
                         android:drawableStart="@drawable/ic_baseline_pin_drop_24"
                         android:drawablePadding="@dimen/_5sdp"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_address"
                         android:inputType="textMultiLine"
                         android:maxLines="3"
                         android:minLines="2"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="@dimen/_8sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:targetApi="m" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -140,10 +145,13 @@
                         android:background="@drawable/rect"
                         android:drawableStart="@drawable/ic_baseline_email_24"
                         android:drawablePadding="@dimen/_5sdp"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_email"
                         android:inputType="textEmailAddress"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="@dimen/_8sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:targetApi="m" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -168,11 +176,14 @@
                         android:digits="0123456789"
                         android:drawableStart="@drawable/ic_baseline_smartphone_24"
                         android:drawablePadding="@dimen/_5sdp"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_mobile"
                         android:inputType="phone"
                         android:maxLength="10"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="@dimen/_8sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:targetApi="m" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -196,10 +207,13 @@
                         android:background="@drawable/rect"
                         android:drawableStart="@drawable/ic_baseline_vpn_key_24"
                         android:drawablePadding="@dimen/_5sdp"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_password"
                         android:inputType="textPassword"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="@dimen/_8sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:targetApi="m" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -222,10 +236,13 @@
                         android:background="@drawable/rect"
                         android:drawableStart="@drawable/ic_baseline_vpn_key_24"
                         android:drawablePadding="@dimen/_5sdp"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_confirm_password"
                         android:inputType="textPassword"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="@dimen/_8sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:targetApi="m" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -235,7 +252,7 @@
                     android:layout_marginHorizontal="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/rect"
-                    android:backgroundTint="@android:color/holo_blue_dark"
+                    android:backgroundTint="@color/colorAccent"
                     android:elevation="@dimen/_2sdp"
                     android:text="@string/btn_register"
                     android:textColor="@android:color/white" />
@@ -258,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:text="@string/text_login"
-                        android:textColor="@android:color/holo_blue_dark"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/_14ssp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>

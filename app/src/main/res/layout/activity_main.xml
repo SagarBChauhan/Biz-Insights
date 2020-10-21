@@ -15,8 +15,8 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_100sdp"
-            android:src="@drawable/avatar"
             android:contentDescription="@string/avatar"
+            android:src="@drawable/avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,9 +56,12 @@
                         android:background="@drawable/rect"
                         android:drawableStart="@drawable/ic_baseline_account_circle_24"
                         android:drawablePadding="@dimen/_5sdp"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_username"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="@dimen/_8sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:targetApi="m" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -81,20 +84,23 @@
                         android:background="@drawable/rect"
                         android:drawableStart="@drawable/ic_baseline_vpn_key_24"
                         android:drawablePadding="@dimen/_5sdp"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_password"
                         android:inputType="textPassword"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="@dimen/_8sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:targetApi="m" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/rect"
-                    android:backgroundTint="@android:color/holo_blue_dark"
+                    android:backgroundTint="@color/colorAccent"
                     android:elevation="@dimen/_2sdp"
                     android:text="@string/btn_login"
                     android:textColor="@android:color/white" />
@@ -117,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:text="@string/text_register"
-                        android:textColor="@android:color/holo_blue_dark"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/_14ssp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
