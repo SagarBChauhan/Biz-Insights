@@ -1,5 +1,6 @@
 package com.bizinsights;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,18 +28,25 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class RegisterActivity extends AppCompatActivity {
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_first_name)
     AppCompatEditText et_first_name;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_last_name)
     AppCompatEditText et_last_name;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_address)
     AppCompatEditText et_address;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_email)
     AppCompatEditText et_email;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_mobile)
     AppCompatEditText et_mobile;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_password)
     AppCompatEditText et_password;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_confirm_password)
     AppCompatEditText et_confirm_password;
 
@@ -53,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick({R.id.tv_login, R.id.btn_register})
     public void onClickAction(View view) {
         switch (view.getId()) {
@@ -64,12 +73,12 @@ public class RegisterActivity extends AppCompatActivity {
                     AsyncHttpClient client = new AsyncHttpClient();
                     JSONObject params = new JSONObject();
                     try {
-                        params.put("first_name", Objects.requireNonNull(et_first_name.getText()).toString());
-                        params.put("last_name", Objects.requireNonNull(et_last_name.getText()).toString());
-                        params.put("address", Objects.requireNonNull(et_address.getText()).toString());
-                        params.put("password", Objects.requireNonNull(et_password.getText()).toString());
-                        params.put("email_id", Objects.requireNonNull(et_email.getText()).toString());
-                        params.put("mobile_no", Objects.requireNonNull(et_mobile.getText()).toString());
+                        params.put("first_name", Objects.requireNonNull(et_first_name.getText()).toString().trim());
+                        params.put("last_name", Objects.requireNonNull(et_last_name.getText()).toString().trim());
+                        params.put("address", Objects.requireNonNull(et_address.getText()).toString().trim());
+                        params.put("password", Objects.requireNonNull(et_password.getText()).toString().trim());
+                        params.put("email_id", Objects.requireNonNull(et_email.getText()).toString().trim());
+                        params.put("mobile_no", Objects.requireNonNull(et_mobile.getText()).toString().trim());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -80,19 +89,15 @@ public class RegisterActivity extends AppCompatActivity {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-
-                    Logger.d("Register Click: Entity -> " + entity);
                     client.post(this, getAbsoluteUrl(getString(R.string.register)), entity, "application/json", new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            Logger.d("on Success" + getAbsoluteUrl(getString(R.string.register)));
-                            Logger.json(Arrays.toString(responseBody));
+                            Logger.d("Status Code: " + "\nResponse: " + Arrays.toString(responseBody) + "\nHeaders: " + Arrays.toString(headers));
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                            Logger.d(statusCode + "on Failure -> " + getAbsoluteUrl(getString(R.string.register)));
-                            Logger.e(Objects.requireNonNull(error.getMessage()));
+                            Logger.e("Status Code: " + statusCode + "\nMessage: " + error.getMessage() + "\nResponse: " + Arrays.toString(responseBody));
                         }
                     });
                 } else {

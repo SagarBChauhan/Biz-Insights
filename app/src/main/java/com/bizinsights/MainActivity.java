@@ -1,5 +1,6 @@
 package com.bizinsights;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,14 +10,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.bizinsights.utility.FormValidation;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.orhanobut.logger.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class MainActivity extends AppCompatActivity {
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_username)
     AppCompatEditText et_username;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_password)
     AppCompatEditText et_password;
 
@@ -31,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick({R.id.tv_register, R.id.btn_login})
     public void onClickAction(View view) {
         switch (view.getId()) {
@@ -39,13 +55,48 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_login:
                 if (isFormValidate()) {
-                    Toast.makeText(this, getString(R.string.msg_login_success), Toast.LENGTH_SHORT).show();
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    JSONObject params = new JSONObject();
+                    try {
+                        params.put("username", Objects.requireNonNull(et_username.getText()).toString().trim());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        params.put("password", Objects.requireNonNull(et_password.getText()).toString().trim());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    StringEntity entity = null;
+                    try {
+                        entity = new StringEntity(params.toString());
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+                    client.post(this, getAbsoluteUrl(getString(R.string.login)), entity, "application/json", new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            Logger.d("Status Code: " + "\nResponse: " + Arrays.toString(responseBody)+"\nHeaders: " + Arrays.toString(headers));
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                            Logger.e("Status Code: " + statusCode + "\nMessage: " + error.getMessage() + "\nResponse: " + Arrays.toString(responseBody));
+                        }
+                    });
                 } else {
                     Toast.makeText(this, getString(R.string.msg_login_failed), Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
     }
+
+    private String getAbsoluteUrl(String relativeUrl) {
+        return getString(R.string.base_url) + relativeUrl;
+    }
+
 
     private boolean isFormValidate() {
         if (new FormValidation().checkEmptyEditText(et_username)) {
