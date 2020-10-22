@@ -9,16 +9,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.bizinsights.models.LoginDataModel;
 import com.bizinsights.utility.FormValidation;
+import com.bizinsights.utility.Globals;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -27,7 +30,7 @@ import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_username)
     AppCompatEditText et_username;
@@ -35,15 +38,24 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.et_password)
     AppCompatEditText et_password;
 
+    LoginDataModel loginDataModel;
+    Gson gson;
+    Globals globals;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         init();
     }
 
     private void init() {
         ButterKnife.bind(this);
+
+        loginDataModel = new LoginDataModel();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gson = gsonBuilder.create();
+        globals = (Globals) getApplicationContext();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -75,15 +87,23 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    client.post(this, getAbsoluteUrl(getString(R.string.login)), entity, "application/json", new AsyncHttpResponseHandler() {
+                    client.post(this, getAbsoluteUrl(getString(R.string.login)), entity, "application/json", new JsonHttpResponseHandler() {
                         @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            Logger.d("Status Code: " + "\nResponse: " + Arrays.toString(responseBody) + "\nHeaders: " + Arrays.toString(headers));
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            Logger.json(response.toString());
+                            loginDataModel = gson.fromJson(response.toString(), LoginDataModel.class);
+                            globals.setLoginData(loginDataModel);
+                            if (globals.getLoginData() != null) {
+                                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                            }
                         }
 
                         @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                            Logger.e("Status Code: " + statusCode + "\nMessage: " + error.getMessage() + "\nResponse: " + Arrays.toString(responseBody));
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                            Logger.e("Login", "" + errorResponse.toString());
+                            Logger.e("Login", "status code " + statusCode);
                         }
                     });
                 } else {

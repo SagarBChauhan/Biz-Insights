@@ -1,22 +1,29 @@
 package com.bizinsights;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.bizinsights.utility.Globals;
 
 public class SplashActivity extends AppCompatActivity {
-    private int DELAY=5000;
+    private final int DELAY = 5000;
+    Globals globals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        globals = (Globals) getApplicationContext();
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(SplashActivity.this,MainActivity.class));
+            if (globals.getLoginData() != null) {
+                startActivity(new Intent(SplashActivity.this, DashboardActivity.class));
+            } else {
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+            }
             finish();
-        },DELAY);
+        }, DELAY);
     }
 }

@@ -11,14 +11,13 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import com.bizinsights.utility.FormValidation;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -66,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void onClickAction(View view) {
         switch (view.getId()) {
             case R.id.tv_login:
-                startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 break;
             case R.id.btn_register:
                 if (isFormValidate()) {
@@ -89,15 +88,18 @@ public class RegisterActivity extends AppCompatActivity {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    client.post(this, getAbsoluteUrl(getString(R.string.register)), entity, "application/json", new AsyncHttpResponseHandler() {
+                    client.post(this, getAbsoluteUrl(getString(R.string.register)), entity, "application/json", new JsonHttpResponseHandler() {
                         @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            Logger.d("Status Code: " + "\nResponse: " + Arrays.toString(responseBody) + "\nHeaders: " + Arrays.toString(headers));
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            Logger.json(response.toString());
                         }
 
                         @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                            Logger.e("Status Code: " + statusCode + "\nMessage: " + error.getMessage() + "\nResponse: " + Arrays.toString(responseBody));
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                            Logger.e("Register", "" + errorResponse.toString());
+                            Logger.e("Register", "status code " + statusCode);
                         }
                     });
                 } else {
