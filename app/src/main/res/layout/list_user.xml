@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_2sdp"
+    android:layout_marginVertical="@dimen/_1sdp"
+    android:background="@android:color/white"
+    android:elevation="@dimen/_3sdp"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_6sdp"
+    android:paddingVertical="@dimen/_3sdp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_1sdp"
+        android:text="@string/user_name"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:gravity="center_vertical"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawablePadding="@dimen/_2sdp"
+            android:text="@string/user_email" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_user_mobile_no"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_baseline_smartphone_24"
+            android:drawablePadding="@dimen/_2sdp"
+            android:text="@string/user_mobile_no" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_user_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:drawableStart="@drawable/ic_baseline_pin_drop_24"
+        android:drawablePadding="@dimen/_2sdp"
+        android:text="@string/user_address"
+        android:textAlignment="center" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

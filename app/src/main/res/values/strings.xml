@@ -40,4 +40,10 @@
     <string name="msg_username_empty">Username can not be empty</string>
     <string name="msg_login_success">Login Success</string>
     <string name="password_requirement">Password must Contain 1 Uppercase, 1 Lowercase, 1 Number, 1 Spacial character.</string>
+    <string name="user_list">User list</string>
+    <string name="toolbar">Toolbar</string>
+    <string name="user_name">Firstname Lastname</string>
+    <string name="user_email">email@mail.com</string>
+    <string name="user_mobile_no">7069236002</string>
+    <string name="user_address">At.Post Munsad(Padar faliyu), Via. Ganesh Sisodra, Ta.Dist. Navsari - 396463</string>
 </resources>

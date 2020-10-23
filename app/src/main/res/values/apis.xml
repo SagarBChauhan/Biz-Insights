@@ -3,4 +3,5 @@
     <string name="base_url">https://apis.biz-insights.com/api-biz-insights/api/</string>
     <string name="register">register</string>
     <string name="login">validateLogin</string>
+    <string name="getUsersist">getUsersist</string>
 </resources>

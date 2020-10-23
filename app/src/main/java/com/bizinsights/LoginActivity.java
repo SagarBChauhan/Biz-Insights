@@ -93,17 +93,17 @@ public class LoginActivity extends AppCompatActivity {
                             super.onSuccess(statusCode, headers, response);
                             Logger.json(response.toString());
                             loginDataModel = gson.fromJson(response.toString(), LoginDataModel.class);
-                            globals.setLoginData(loginDataModel);
-                            if (globals.getLoginData() != null) {
+                            if (loginDataModel.data != null) {
+                                globals.setLoginData(loginDataModel);
                                 startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                            } else {
+                                Toast.makeText(LoginActivity.this, loginDataModel.msg, Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            super.onFailure(statusCode, headers, throwable, errorResponse);
-                            Logger.e("Login", "" + errorResponse.toString());
-                            Logger.e("Login", "status code " + statusCode);
+                        public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
+                            Logger.e("ERROR: ", res);
                         }
                     });
                 } else {
