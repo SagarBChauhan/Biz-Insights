@@ -59,7 +59,11 @@
                         android:drawableTint="@color/colorPrimary"
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_username"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
                         android:padding="@dimen/_8sdp"
+                        android:singleLine="true"
                         android:textColor="@color/colorPrimaryDark"
                         tools:targetApi="m" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -87,11 +91,23 @@
                         android:drawableTint="@color/colorPrimary"
                         android:elevation="@dimen/_2sdp"
                         android:hint="@string/hint_password"
+                        android:imeOptions="actionDone"
                         android:inputType="textPassword"
+                        android:maxLines="1"
                         android:padding="@dimen/_8sdp"
+                        android:singleLine="true"
                         android:textColor="@color/colorPrimaryDark"
                         tools:targetApi="m" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_login"

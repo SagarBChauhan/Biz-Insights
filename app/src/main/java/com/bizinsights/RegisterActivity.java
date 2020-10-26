@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.bizinsights.utility.FormValidation;
@@ -26,28 +28,26 @@ import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
+@SuppressLint("NonConstantResourceId")
 public class RegisterActivity extends AppCompatActivity {
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_first_name)
     AppCompatEditText et_first_name;
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_last_name)
     AppCompatEditText et_last_name;
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_address)
     AppCompatEditText et_address;
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_email)
     AppCompatEditText et_email;
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_mobile)
     AppCompatEditText et_mobile;
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_password)
     AppCompatEditText et_password;
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_confirm_password)
     AppCompatEditText et_confirm_password;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.btn_register)
+    AppCompatButton btn_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,9 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 break;
             case R.id.btn_register:
+
+                progressBar.setVisibility(View.VISIBLE);
+                btn_register.setVisibility(View.GONE);
                 if (isFormValidate()) {
                     AsyncHttpClient client = new AsyncHttpClient();
                     JSONObject params = new JSONObject();
@@ -93,6 +96,11 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
                             Logger.json(response.toString());
+                            progressBar.setVisibility(View.GONE);
+                            btn_register.setVisibility(View.VISIBLE);
+                            Toast.makeText(RegisterActivity.this, "Registration success, please login again.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            finish();
                         }
 
                         @Override
@@ -100,10 +108,15 @@ public class RegisterActivity extends AppCompatActivity {
                             super.onFailure(statusCode, headers, throwable, errorResponse);
                             Logger.e("Register", "" + errorResponse.toString());
                             Logger.e("Register", "status code " + statusCode);
+                            progressBar.setVisibility(View.GONE);
+                            btn_register.setVisibility(View.VISIBLE);
                         }
+
                     });
                 } else {
                     Toast.makeText(this, getString(R.string.msg_registration_failed), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    btn_register.setVisibility(View.VISIBLE);
                 }
                 break;
         }

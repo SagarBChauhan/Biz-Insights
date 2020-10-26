@@ -7,7 +7,6 @@
     tools:context=".DashboardActivity">
 
     <include
-        android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.bizinsights.models.LoginDataModel;
@@ -30,13 +32,17 @@ import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
+@SuppressLint("NonConstantResourceId")
 public class LoginActivity extends AppCompatActivity {
-    @SuppressLint("NonConstantResourceId")
+
     @BindView(R.id.et_username)
     AppCompatEditText et_username;
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.et_password)
     AppCompatEditText et_password;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.btn_login)
+    AppCompatButton btn_login;
 
     LoginDataModel loginDataModel;
     Gson gson;
@@ -58,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         globals = (Globals) getApplicationContext();
     }
 
-    @SuppressLint("NonConstantResourceId")
+
     @OnClick({R.id.tv_register, R.id.btn_login})
     public void onClickAction(View view) {
         switch (view.getId()) {
@@ -66,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(this, RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 break;
             case R.id.btn_login:
+                progressBar.setVisibility(View.VISIBLE);
+                btn_login.setVisibility(View.GONE);
                 if (isFormValidate()) {
                     AsyncHttpClient client = new AsyncHttpClient();
                     JSONObject params = new JSONObject();
@@ -95,18 +103,26 @@ public class LoginActivity extends AppCompatActivity {
                             loginDataModel = gson.fromJson(response.toString(), LoginDataModel.class);
                             if (loginDataModel.data != null) {
                                 globals.setLoginData(loginDataModel);
+                                Toast.makeText(LoginActivity.this, loginDataModel.msg, Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                                finish();
                             } else {
                                 Toast.makeText(LoginActivity.this, loginDataModel.msg, Toast.LENGTH_SHORT).show();
                             }
+                            progressBar.setVisibility(View.GONE);
+                            btn_login.setVisibility(View.VISIBLE);
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
+                            progressBar.setVisibility(View.GONE);
+                            btn_login.setVisibility(View.VISIBLE);
                             Logger.e("ERROR: ", res);
                         }
                     });
                 } else {
+                    progressBar.setVisibility(View.GONE);
+                    btn_login.setVisibility(View.VISIBLE);
                     Toast.makeText(this, getString(R.string.msg_login_failed), Toast.LENGTH_SHORT).show();
                 }
                 break;
